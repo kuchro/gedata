@@ -2,40 +2,40 @@ package org.gedata.producer.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import org.gedata.producer.generator.DataProducer;
 import org.gedata.producer.generator.SQLInsertProducer;
 import org.gedata.producer.model.data.DownloadData;
 import org.gedata.producer.model.producer.GenericData;
 import org.gedata.producer.model.producer.InputProducer;
-import org.gedata.producer.repository.IGenericDataRepository;
+import org.gedata.producer.repository.GenericDataRepository;
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.jboss.logging.Logger;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.time.Instant;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
 
 @Service
+@Data
+@AllArgsConstructor
 public class ProducerService {
 
-    Logger logger = LoggerFactory.logger(ProducerService.class);
+    private final Logger logger = LoggerFactory.logger(ProducerService.class);
 
     private final DataProducer dataProducer;
-    private final IGenericDataRepository iGenericDataRepository;
+    private final GenericDataRepository genericDataRepository;
     private final SQLInsertProducer sqlInsertProducer;
-
-    public ProducerService(DataProducer dataProducer, IGenericDataRepository iGenericDataRepository,
-                           SQLInsertProducer sqlInsertProducer) {
-        this.dataProducer = dataProducer;
-        this.iGenericDataRepository = iGenericDataRepository;
-        this.sqlInsertProducer = sqlInsertProducer;
-    }
 
     public GenericData saveData(GenericData genericData) throws JsonProcessingException {
         dataProducer.validateJsonString(genericData.getJsonModel());
         logger.info(String.format("Data to persist: %s",genericData.toString()));
-        return iGenericDataRepository.save(genericData);
+        return genericDataRepository.save(genericData);
     }
 
     public JsonNode produceDataOnDemand(InputProducer inputProducer) throws JsonProcessingException {
@@ -50,32 +50,29 @@ public class ProducerService {
 
     public Optional<GenericData> getGenericDataById(Long id) {
         logger.info(String.format("Get generic data template for id: %d",id));
-        return iGenericDataRepository.findById(id);
+        return genericDataRepository.findById(id);
     }
 
-    public DownloadData prepareDataForDownloadById(Long id) throws JsonProcessingException {
+    public DownloadData prepareDataForDownloadById(Long id) throws IOException {
         logger.info(String.format("Prepare data for id: %d to download",id));
-        GenericData data = getGenericDataById(id).orElse(null);
-        if (!Objects.isNull(data)) {
-            logger.debug(String.format("Prepared data for id: %d, data: %s",id,data));
-            return new DownloadData(dataProducer.prepareDataForDownload(data.getJsonModel()), data.getDataName(), Instant.now());
-        }
-        return new DownloadData("No such a content available".getBytes(), "NoContent", Instant.now());
+        GenericData data = getGenericDataById(id)
+                .orElseThrow(()-> new NoSuchElementException(String.format("There is not data for id: %s",id)));
+        logger.debug(String.format("Prepared data for id: %d, data: %s",id,data));
+        var genericData = produceDataOnDemand(new InputProducer(data.getOutputFormat(),data.getJsonModel()));
+        return new DownloadData(dataProducer.prepareDataForDownload(genericData),
+                data.getDataName(), Instant.now());
     }
 
     public Optional<GenericData> updateGenericData(Long id, GenericData newGenercData) {
         logger.info(String.format("GenericData to update for id: %d, content: %s",id,newGenercData));
-        Optional<GenericData> genericData = iGenericDataRepository.findById(id);
-        if (genericData.isPresent()) {
-            genericData = genericData.map(g -> {
-                g.setDataName(newGenercData.getDataName());
-                g.setLastModified(Instant.now());
-                g.setJsonModel(newGenercData.getJsonModel());
-                g.setHostTarget(newGenercData.getHostTarget());
-                return g;
-            });
-            iGenericDataRepository.save(genericData.get());
-        }
-        return genericData;
+        return Optional.ofNullable(genericDataRepository.findById(id)
+                .map(g -> {
+                    g.setDataName(newGenercData.getDataName());
+                    g.setLastModified(Instant.now());
+                    g.setJsonModel(newGenercData.getJsonModel());
+                    g.setHostTarget(newGenercData.getHostTarget());
+                    genericDataRepository.save(g);
+                    return g;
+                }).orElseThrow(() -> new NoSuchElementException(String.format("Data with id: %s does not exist.", id))));
     }
 }

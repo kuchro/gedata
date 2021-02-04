@@ -6,39 +6,24 @@ import java.util.Objects;
 import java.util.Random;
 
 @Component
-public class GeneratorProviderImpl implements GeneratorProvider {
+public class GenericDataProvider implements GeneratorProvider {
     private final DataPicker dataPicker;
     private final Random random;
     private final SynteticGenerator synteticGenerator;
 
-    public GeneratorProviderImpl(DataPicker dataPicker, SynteticGenerator synteticGenerator) {
+    public GenericDataProvider(DataPicker dataPicker, SynteticGenerator synteticGenerator) {
         this.dataPicker = dataPicker;
         this.random = new Random();
         this.synteticGenerator = synteticGenerator;
     }
 
     @Override
-    public String femaleNameGen() {
-        var data = dataPicker.listOfFemaleNames();
-        return dataPicker.listOfFemaleNames().get(random.nextInt(data.size() - 1));
-    }
-    @Override
-    public String maleNameGen() {
-        var data = dataPicker.listOfMaleNames();
+    public String personalDataGen(String genName) throws NoSuchMethodException {
+        var data = dataPicker.personalGen(genName);
+        if(Objects.isNull(data)){
+            throw new NoSuchMethodException(String.format("Generator with name: %s does not exist.",genName));
+        }
         return data.get(random.nextInt(data.size() - 1));
-    }
-
-    @Override
-    public String lastNameGen() {
-        var data = dataPicker.listOfLastNames();
-        return data.get(random.nextInt(data.size() - 1));
-    }
-
-    @Override
-    public String nickNameGen() {
-        var data = dataPicker.listOfNickName();
-        return data.get(data.size() - 1);
-
     }
 
     @Override
@@ -49,12 +34,6 @@ public class GeneratorProviderImpl implements GeneratorProvider {
     @Override
     public String passwordGen(int length) {
         return synteticGenerator.generateFakePassword(length);
-    }
-
-    @Override
-    public String phoneGen() {
-        var data = dataPicker.listOfPhones();
-        return data.get(random.nextInt((data.size() - 1)));
     }
 
     @Override

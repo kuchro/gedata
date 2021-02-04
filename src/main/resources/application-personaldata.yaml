@@ -1,99 +1,99 @@
-name:
-  generator:
-    female:
-      - Karolina
-      - Marcelina
-      - Anna
-      - Patrycja
-      - Genowefa
-      - Julia
-      - Aneta
-      - Jowita
-      - Barbara
-      - Zofia
-      - Eugenia
-      - Dagmara
-      - Zuzanna
-      - Pola
-      - Nikita
-      - Marta
-      - Oliwia
 
-    male:
-      - Karol
-      - Zenon
-      - Darek
-      - Marek
-      - Michal
-      - Wojciech
-      - Krzysztof
-      - Jerzy
-      - Grzegorz
-      - Piotr
-      - Marcin
-      - Mariusz
-      - Zygmunt
-      - Pawel
-      - Maksymilian
-      - Edmund
+data:
+  config:
+    personaldata:
+      female:
+          - Karolina
+          - Marcelina
+          - Anna
+          - Patrycja
+          - Genowefa
+          - Julia
+          - Aneta
+          - Jowita
+          - Barbara
+          - Zofia
+          - Eugenia
+          - Dagmara
+          - Zuzanna
+          - Pola
+          - Nikita
+          - Marta
+          - Oliwia
+      male:
+        - Karol
+        - Zenon
+        - Darek
+        - Marek
+        - Michal
+        - Wojciech
+        - Krzysztof
+        - Jerzy
+        - Grzegorz
+        - Piotr
+        - Marcin
+        - Mariusz
+        - Zygmunt
+        - Pawel
+        - Maksymilian
+        - Edmund
+      lastname:
+        - Kowalski
+        - Zawadzki
+        - Nowak
+        - Bomba
+        - Zawitaj
+        - Wronek
+        - Boniek
+        - Zabawny
+        - Mieszko
+        - Moranko
+        - Loranko
+        - Gengiel
+        - Karnik
+        - Baranik
+        - Borowka
+        - Malina
+        - Zosna
+      nickname:
+        - Barnie
+        - Zaix
+        - Norman
+        - Baby89
+        - LolaXO
+        - Morgan
+        - RedTrav
+        - MixOwn
+        - ConanX
+        - ProperX
+        - Norman
+        - Zais
+        - RudyLis
+        - SugarBron
+        - MeryMerkury
+        - Max765
+        - Lucky29
+        - Barny69
+        - Nowax21
+        - Benos32
+        - Lolek221
+        - Yzew123
 
-    lastname:
-      - Kowalski
-      - Zawadzki
-      - Nowak
-      - Bomba
-      - Zawitaj
-      - Wronek
-      - Boniek
-      - Zabawny
-      - Mieszko
-      - Moranko
-      - Loranko
-      - Gengiel
-      - Karnik
-      - Baranik
-      - Borowka
-      - Malina
-      - Zosna
+      phone:
+        - "202-555-0165"
+        - "202-555-0115"
+        - "202-555-0175"
+        - "202-555-0126"
+        - "202-555-0142"
+        - "202-555-0151"
+        - "223-435-654"
+        - "213-565-467"
+        - "784-435-675"
+        - "888-435-233"
+        - "213-123-545"
+        - "435-432-656"
+        - "321-546-324"
+        - "654-657-333"
+        - "321-546-879"
 
 
-    nickname:
-      - Barnie
-      - Zaix
-      - Norman
-      - Baby89
-      - LolaXO
-      - Morgan
-      - RedTrav
-      - MixOwn
-      - ConanX
-      - ProperX
-      - Norman
-      - Zais
-      - RudyLis
-      - SugarBron
-      - MeryMerkury
-      - Max765
-      - Lucky29
-      - Barny69
-      - Nowax21
-      - Benos32
-      - Lolek221
-      - Yzew123
-
-    phone:
-      - "202-555-0165"
-      - "202-555-0115"
-      - "202-555-0175"
-      - "202-555-0126"
-      - "202-555-0142"
-      - "202-555-0151"
-      - "223-435-654"
-      - "213-565-467"
-      - "784-435-675"
-      - "888-435-233"
-      - "213-123-545"
-      - "435-432-656"
-      - "321-546-324"
-      - "654-657-333"
-      - "321-546-879"

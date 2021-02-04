@@ -22,7 +22,6 @@ public class InputInterpreter implements InputValueInterpreter {
             ThreadLocal.withInitial(()-> new StandardEvaluationContext(this));
 
     public InputInterpreter(GeneratorProvider generatorProvider) {
-
         this.generatorProvider = generatorProvider;
     }
 

@@ -1,29 +1,34 @@
 package org.gedata.producer.model.producer;
 
+import lombok.*;
 import org.gedata.producer.model.data.HostTarget;
 
 import javax.persistence.*;
 import java.time.Instant;
 
+
 @Entity(name = "generic_data")
 public class GenericData {
 
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String dataName;
     private Instant createdTime;
     private Instant lastModified;
-    @Column( length = 1000000 )
+    @Column(length = 1000000)
     private String jsonModel;
+    private String outputFormat;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "host_id", referencedColumnName = "id")
     private HostTarget hostTarget;
 
-    public GenericData(String dataName, String jsonModel, HostTarget hostTarget) {
+    public GenericData(String dataName, String jsonModel, String outputFormat,HostTarget hostTarget) {
         this.dataName = dataName;
         this.createdTime = Instant.now();
         this.lastModified = Instant.now();
         this.jsonModel = jsonModel;
+        this.outputFormat=outputFormat;
         this.hostTarget = hostTarget;
     }
 
@@ -47,7 +52,7 @@ public class GenericData {
     }
 
     public Instant getCreatedTime() {
-        return Instant.now();
+        return createdTime;
     }
 
     public void setCreatedTime(Instant createdTime) {
@@ -70,22 +75,19 @@ public class GenericData {
         this.jsonModel = jsonModel;
     }
 
+    public String getOutputFormat() {
+        return outputFormat;
+    }
+
+    public void setOutputFormat(String outputFormat) {
+        this.outputFormat = outputFormat;
+    }
+
     public HostTarget getHostTarget() {
         return hostTarget;
     }
 
     public void setHostTarget(HostTarget hostTarget) {
         this.hostTarget = hostTarget;
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("GenericData{");
-        sb.append("id=").append(id);
-        sb.append(", dataName='").append(dataName).append('\'');
-        sb.append(", jsonModel='").append(jsonModel).append('\'');
-        sb.append(", hostTarget=").append(hostTarget);
-        sb.append('}');
-        return sb.toString();
     }
 }

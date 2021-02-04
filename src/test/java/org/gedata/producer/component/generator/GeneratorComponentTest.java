@@ -3,7 +3,6 @@ package org.gedata.producer.component.generator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.gedata.producer.generator.DataProducer;
-import org.gedata.producer.generator.DataProducerImpl;
 import org.gedata.producer.generator.InputValueInterpreter;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

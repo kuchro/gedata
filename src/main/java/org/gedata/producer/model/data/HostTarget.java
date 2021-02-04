@@ -1,5 +1,6 @@
 package org.gedata.producer.model.data;
 
+import lombok.*;
 import org.gedata.producer.model.producer.GenericData;
 
 import javax.persistence.Entity;

@@ -16,7 +16,6 @@ public class JsonMapper {
         return new ObjectMapper()
                 .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
                 .setSerializationInclusion(JsonInclude.Include.NON_NULL)
-                .enable(DeserializationFeature.FAIL_ON_READING_DUP_TREE_KEY)
                 .registerModule(new JavaTimeModule());
 
     }

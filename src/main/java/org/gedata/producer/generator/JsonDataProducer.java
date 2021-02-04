@@ -9,15 +9,16 @@ import org.springframework.stereotype.Component;
 
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Optional;
 
 @Component
-public class DataProducerImpl implements DataProducer {
+public class JsonDataProducer implements DataProducer {
 
 
     private final InputValueInterpreter inputValueInterpreter;
     private final ObjectMapper objectMapper;
 
-    public DataProducerImpl(InputValueInterpreter inputValueInterpreter, ObjectMapper objectMapper) {
+    public JsonDataProducer(InputValueInterpreter inputValueInterpreter, ObjectMapper objectMapper) {
         this.inputValueInterpreter = inputValueInterpreter;
         this.objectMapper = objectMapper;
     }
@@ -27,17 +28,19 @@ public class DataProducerImpl implements DataProducer {
         JsonNode jsonNode = objectMapper.readTree(value);
         ObjectNode targetJson = objectMapper.createObjectNode();
         ArrayNode outerArray = objectMapper.createArrayNode();
+      /*  Optional.ofNullable(jsonNode)
+                .filter(JsonNode::isObject).ifPresent(x-> computeJsonModel(x,targetJson));
+
+        Optional.ofNullable(jsonNode)
+                .filter(JsonNode::isArray)
+                .ifPresentOrElse(x -> {
+                    x.get(0).fields().hasNext();
+                    computeNestedArray(x,outerArray);},()-> computeArray(outerArray, jsonNode.get(0)));
+        Optional.ofNullable(jsonNode)
+                .filter(JsonNode::isObject).ifPresent(x-> computeJsonModel(x,targetJson));*/
         if (jsonNode.isArray()) {
             if (jsonNode.get(0).fields().hasNext()) {
-                int iterate = Integer.parseInt(getCounterAndRemoveIt(jsonNode));
-                if (jsonNode.isArray()) {
-                    jsonNode = jsonNode.get(0);
-                }
-                for (int i = 0; i < iterate; i++) {
-                    ObjectNode newjson = objectMapper.createObjectNode();
-                    computeJsonModel(jsonNode, newjson);
-                    outerArray.add(newjson);
-                }
+                computeNestedArray(jsonNode, outerArray);
             } else {
                 computeArray(outerArray, jsonNode.get(0));
             }
@@ -49,11 +52,23 @@ public class DataProducerImpl implements DataProducer {
         return objectMapper.readTree(targetValue);
     }
 
+    private void computeNestedArray(JsonNode jsonNode, ArrayNode outerArray) {
+        int iterate = Integer.parseInt(getCounterAndRemoveIt(jsonNode));
+        if (jsonNode.isArray()) {
+            jsonNode = jsonNode.get(0);
+        }
+        for (int i = 0; i < iterate; i++) {
+            ObjectNode newjson = objectMapper.createObjectNode();
+            computeJsonModel(jsonNode, newjson);
+            outerArray.add(newjson);
+        }
+    }
+
 
     @Override
-    public byte[] prepareDataForDownload(String jsonNode) throws JsonProcessingException {
+    public byte[] prepareDataForDownload(JsonNode jsonNode) throws JsonProcessingException {
         return objectMapper.writerWithDefaultPrettyPrinter()
-                .writeValueAsString(produceGenericData(jsonNode)).getBytes();
+                .writeValueAsString(jsonNode).getBytes();
     }
 
     @Override
@@ -62,7 +77,7 @@ public class DataProducerImpl implements DataProducer {
         return true;
     }
 
-    private void computeJsonModel(JsonNode jsonNode, ObjectNode targetJson) throws JsonProcessingException {
+    private void computeJsonModel(JsonNode jsonNode, ObjectNode targetJson) {
         Iterator<Map.Entry<String, JsonNode>> iter = jsonNode.fields();
         Map.Entry<String, JsonNode> currentEntry;
 
@@ -95,7 +110,7 @@ public class DataProducerImpl implements DataProducer {
         return val;
     }
 
-    private void computeJsonObject(ObjectNode map, Iterator<Map.Entry<String, JsonNode>> jsonFields) throws JsonProcessingException {
+    private void computeJsonObject(ObjectNode map, Iterator<Map.Entry<String, JsonNode>> jsonFields)  {
         while (jsonFields.hasNext()) {
             Map.Entry<String, JsonNode> currentEntry = jsonFields.next();
             if (currentEntry.getValue().isTextual()) {
@@ -108,7 +123,7 @@ public class DataProducerImpl implements DataProducer {
         }
     }
 
-    private void computeJsonArray(ArrayNode array, JsonNode jsonNode) throws JsonProcessingException {
+    private void computeJsonArray(ArrayNode array, JsonNode jsonNode) {
         for (JsonNode node : jsonNode) {
             for (int i = 0; i < inputValueInterpreter.evalQuantity(node.asText()); i++) {
                 if (node.isObject()) {
@@ -122,7 +137,7 @@ public class DataProducerImpl implements DataProducer {
         }
     }
 
-    private void computeArray(ArrayNode array, JsonNode jsonNode) throws JsonProcessingException {
+    private void computeArray(ArrayNode array, JsonNode jsonNode)  {
         for (int i = 0; i < inputValueInterpreter.evalQuantity(jsonNode.asText()); i++) {
             array.add(inputValueInterpreter.eval(jsonNode.asText()));
         }

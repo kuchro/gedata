@@ -5,6 +5,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 public interface DataProducer {
     JsonNode produceGenericData(String value) throws JsonProcessingException;
-    byte[] prepareDataForDownload(String jsonNode) throws JsonProcessingException;
+    byte[] prepareDataForDownload(JsonNode jsonNode) throws JsonProcessingException;
     boolean validateJsonString(String value) throws JsonProcessingException;
 }

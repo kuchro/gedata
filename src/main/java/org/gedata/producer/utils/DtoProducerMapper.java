@@ -9,15 +9,15 @@ import org.gedata.producer.model.producer.GenericData;
 public class DtoProducerMapper {
 
     public static GenericData convertToGenericData(GenericDataDto genericDataDto){
-        return new GenericData(genericDataDto.getDataName(),genericDataDto.getJsonModel(),
+        return new GenericData(genericDataDto.getDataName(),genericDataDto.getJsonModel(), genericDataDto.getOutputFormat(),
                 convertToHostTarget(genericDataDto.getHostTarget()));
     }
     public static HostTarget convertToHostTarget(HostTargetDto hostTargetDto){
-        return new HostTarget(hostTargetDto.getHostAddres(),hostTargetDto.getPortNumber(),hostTargetDto.getUri());
+        return new HostTarget(hostTargetDto.getHostAddress(),hostTargetDto.getPortNumber(),hostTargetDto.getUri());
     }
 
     public static GenericDataDto convertToGenericDataDto(GenericData genericData){
-        return new GenericDataDto(genericData.getDataName(),
+        return new GenericDataDto(genericData.getDataName(),genericData.getOutputFormat(),
                 genericData.getJsonModel(),convertToHostTargetDto(genericData.getHostTarget()));
     }
 

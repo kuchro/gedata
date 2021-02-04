@@ -1,6 +1,6 @@
 
 address:
-  country:
+  data:
      UK:
         street:
           - "Ebon Route"

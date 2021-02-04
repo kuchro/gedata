@@ -1,9 +1,7 @@
 package org.gedata.producer.generator;
 
-import org.gedata.producer.configuration.generator.AddressDataInit;
-import org.gedata.producer.configuration.generator.PersonalDataGenerator;
-import org.gedata.producer.repository.syntetic.SynteticAddressData;
-import org.gedata.producer.repository.syntetic.SynteticUserData;
+import org.gedata.producer.configuration.generator.AddressDataConfiguration;
+import org.gedata.producer.configuration.generator.PersonalDataConfiguration;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -11,41 +9,24 @@ import java.util.List;
 @Component
 public class DataPicker{
 
-    private final PersonalDataGenerator personalDataGenerator;
-    private final AddressDataInit addressDataInit;
+    private final PersonalDataConfiguration personalDataConfiguration;
+    private final AddressDataConfiguration addressDataConfiguration;
 
-    public DataPicker(PersonalDataGenerator personalDataGenerator, AddressDataInit addressDataInit) {
-        this.personalDataGenerator = personalDataGenerator;
-        this.addressDataInit = addressDataInit;
-
+    public DataPicker(PersonalDataConfiguration personalDataConfiguration, AddressDataConfiguration addressDataConfiguration) {
+        this.personalDataConfiguration = personalDataConfiguration;
+        this.addressDataConfiguration = addressDataConfiguration;
     }
 
 
-    public List<String> listOfFemaleNames(){
-            return personalDataGenerator.getFemale();
-    }
-
-    public List<String> listOfMaleNames(){
-        return personalDataGenerator.getMale();
-    }
-
-    public List<String> listOfLastNames(){
-        return personalDataGenerator.getLastname();
-    }
-
-    public List<String> listOfNickName(){
-        return personalDataGenerator.getNickName();
-    }
-
-    public List<String> listOfPhones(){
-        return personalDataGenerator.getPhone();
+    public List<String> personalGen(String genValue){
+         return personalDataConfiguration.getPersonaldata().get(genValue);
     }
 
     public List<String> listOfStreets(String region){
-        return addressDataInit.getCountry().get(region).getStreet();
+        return addressDataConfiguration.getData().get(region).getStreet();
     }
     public List<String> listOfCiies(String region){
-        return addressDataInit.getCountry().get(region).getCity();
+        return addressDataConfiguration.getData().get(region).getCity();
     }
 
 }
