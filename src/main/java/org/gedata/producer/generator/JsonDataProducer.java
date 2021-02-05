@@ -5,12 +5,15 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.stereotype.Component;
 
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Optional;
 
+@Data
+@AllArgsConstructor
 @Component
 public class JsonDataProducer implements DataProducer {
 
@@ -18,10 +21,6 @@ public class JsonDataProducer implements DataProducer {
     private final InputValueInterpreter inputValueInterpreter;
     private final ObjectMapper objectMapper;
 
-    public JsonDataProducer(InputValueInterpreter inputValueInterpreter, ObjectMapper objectMapper) {
-        this.inputValueInterpreter = inputValueInterpreter;
-        this.objectMapper = objectMapper;
-    }
 
     @Override
     public JsonNode produceGenericData(String value) throws JsonProcessingException {
@@ -71,11 +70,6 @@ public class JsonDataProducer implements DataProducer {
                 .writeValueAsString(jsonNode).getBytes();
     }
 
-    @Override
-    public boolean validateJsonString(String value) throws JsonProcessingException {
-        objectMapper.readTree(value);
-        return true;
-    }
 
     private void computeJsonModel(JsonNode jsonNode, ObjectNode targetJson) {
         Iterator<Map.Entry<String, JsonNode>> iter = jsonNode.fields();
@@ -110,7 +104,7 @@ public class JsonDataProducer implements DataProducer {
         return val;
     }
 
-    private void computeJsonObject(ObjectNode map, Iterator<Map.Entry<String, JsonNode>> jsonFields)  {
+    private void computeJsonObject(ObjectNode map, Iterator<Map.Entry<String, JsonNode>> jsonFields) {
         while (jsonFields.hasNext()) {
             Map.Entry<String, JsonNode> currentEntry = jsonFields.next();
             if (currentEntry.getValue().isTextual()) {
@@ -137,7 +131,7 @@ public class JsonDataProducer implements DataProducer {
         }
     }
 
-    private void computeArray(ArrayNode array, JsonNode jsonNode)  {
+    private void computeArray(ArrayNode array, JsonNode jsonNode) {
         for (int i = 0; i < inputValueInterpreter.evalQuantity(jsonNode.asText()); i++) {
             array.add(inputValueInterpreter.eval(jsonNode.asText()));
         }

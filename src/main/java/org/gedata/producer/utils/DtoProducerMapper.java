@@ -28,6 +28,6 @@ public class DtoProducerMapper {
     public static GenericDataDetailedDto convertToGDDetailedDto(GenericData genericData){
         return new GenericDataDetailedDto(genericData.getId(),genericData.getDataName(),genericData.getCreatedTime(),
                 genericData.getLastModified(),
-                genericData.getJsonModel(),convertToHostTargetDto(genericData.getHostTarget()));
+                genericData.getJsonModel(),genericData.getOutputFormat(),convertToHostTargetDto(genericData.getHostTarget()));
     }
 }

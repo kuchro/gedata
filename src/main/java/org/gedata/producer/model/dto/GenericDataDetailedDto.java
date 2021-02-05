@@ -14,5 +14,6 @@ public class GenericDataDetailedDto {
     private Instant createdTime;
     private Instant lastModified;
     private String jsonModel;
+    private String outputFormat;
     private HostTargetDto hostTarget;
 }

@@ -4,30 +4,27 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.stereotype.Component;
 
 import java.security.InvalidParameterException;
 import java.util.Iterator;
 import java.util.Map;
 
+@Data
+@AllArgsConstructor
 @Component
 public class SQLInsertProducerImpl implements SQLInsertProducer {
 
     private final InputValueInterpreter inputValueInterpreter;
     private final ObjectMapper objectMapper;
 
-    public SQLInsertProducerImpl(InputValueInterpreter inputValueInterpreter, ObjectMapper objectMapper) {
-        this.inputValueInterpreter = inputValueInterpreter;
-        this.objectMapper = objectMapper;
-    }
 
     @Override
     public JsonNode insertProducer(String text) throws JsonProcessingException {
-        return computeJsonString(text);
-    }
 
-    private JsonNode computeStringValue(String text) {
-        return null;
+        return computeJsonString(text);
     }
 
     private JsonNode computeJsonString(String text) throws JsonProcessingException {

@@ -4,6 +4,9 @@ import lombok.*;
 import org.gedata.producer.model.data.HostTarget;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 import java.time.Instant;
 
 

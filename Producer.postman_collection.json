@@ -1,0 +1,270 @@
+{
+	"info": {
+		"_postman_id": "ae1b5d79-867e-48e2-bf6b-e589314c6df1",
+		"name": "Producer",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Produce Data",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"outputFormat\": \"json\",\r\n    \"jsonModel\":\"{\\\"firstname\\\":\\\"${personalDataGen('male')}\\\",\\\"lastname\\\":\\\"${personalDataGen('lastname')}\\\",\\\"nickName\\\":\\\"${personalDataGen('nickname')}\\\",\\\"personalData\\\":{\\\"firstName\\\":\\\"${personalDataGen('male')}\\\",\\\"lastName\\\":\\\"${personalDataGen('lastname')}\\\",\\\"data\\\":{\\\"firstName\\\":\\\"${personalDataGen('male')}\\\",\\\"lastName\\\":\\\"${personalDataGen('lastname')}\\\"}},\\\"addressData\\\":{\\\"firstName\\\":\\\"${personalDataGen('male')}\\\",\\\"lastName\\\":\\\"${personalDataGen('lastname')}\\\"},\\\"array\\\":[{\\\"first\\\":\\\"${personalDataGen('male')}${quantity(5)}\\\",\\\"last\\\":\\\"${personalDataGen('lastname')}\\\",\\\"personalData\\\":{\\\"firstName\\\":\\\"${personalDataGen('lastname')}\\\",\\\"lastName\\\":\\\"${personalDataGen('lastname')}\\\"}},{\\\"first\\\":\\\"${personalDataGen('male')}\\\",\\\"last\\\":\\\"${personalDataGen('lastname')}\\\",\\\"arr2\\\":[\\\"${personalDataGen('lastname')}\\\",\\\"${personalDataGen('lastname')}\\\",\\\"${personalDataGen('lastname')}\\\",\\\"${personalDataGen('lastname')}\\\"]}],\\\"arr2\\\":[\\\"${personalDataGen('lastname')}\\\",\\\"${personalDataGen('lastname')}\\\",\\\"${personalDataGen('lastname')}\\\",\\\"${personalDataGen('lastname')}\\\"]}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/v1/producer/generate"
+			},
+			"response": []
+		},
+		{
+			"name": "ArrayName",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"outputFormat\": \"json\",\r\n    \"jsonModel\":\"[{\\\"quantity\\\":\\\"10\\\"},{\\\"stary\\\":[\\\"${personalDataGen('male')}${quantity(5)}\\\"]}]\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/v1/producer/generate"
+			},
+			"response": []
+		},
+		{
+			"name": "ComplexArr",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"outputFormat\": \"json\",\r\n    \"outputDestination\": \"response\",\r\n    \"jsonModel\":\"{\\\"array\\\":[{\\\"quantity\\\":\\\"5\\\"},{\\\"first\\\":\\\"${maleNameGen()}${quantity(5)}\\\",\\\"last\\\":\\\"${lastNameGen()}\\\",\\\"personalData\\\":{\\\"firstName\\\":\\\"${lastNameGen()}\\\",\\\"lastName\\\":\\\"${lastNameGen()}\\\"}},{\\\"first\\\":\\\"${maleNameGen()}\\\",\\\"last\\\":\\\"${lastNameGen()}\\\",\\\"arr2\\\":[\\\"${lastNameGen()}\\\",\\\"${lastNameGen()}\\\",\\\"${lastNameGen()}\\\",\\\"${lastNameGen()}\\\"]}],\\\"arr2\\\":[\\\"${lastNameGen()}${quantity(115)}\\\"]}\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/v1/producer/generate"
+			},
+			"response": []
+		},
+		{
+			"name": "Array",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"outputFormat\": \"json\",\r\n    \"jsonModel\":\"[\\\"${personalDataGen('female')}${quantity(15)}\\\"]\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/v1/producer/generate"
+			},
+			"response": []
+		},
+		{
+			"name": "SimpleArrayObject",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n     \"outputFormat\": \"json\",\r\n    \"jsonModel\":\"[{\\\"quantity\\\":\\\"10\\\"},{\\\"firstName\\\":\\\"${personalDataGen('male')}\\\",\\\"lastName\\\":\\\"${personalDataGen('lastname')}\\\"}]\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/v1/producer/generate"
+			},
+			"response": []
+		},
+		{
+			"name": "JsonObject",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"outputFormat\": \"json\",\r\n    \"jsonModel\":\"{\\\"firstName\\\":\\\"${personalDataGen('female')}\\\",\\\"lastName\\\":\\\"${personalDataGen('lastname')}\\\",\\\"zipCode\\\":\\\"${zipCodeGen('PL')}\\\",\\\"password\\\":\\\"${passwordGen(15)}\\\",\\\"address\\\":{\\\"street\\\":\\\"${streetNameGen('PL')}\\\",\\\"city\\\":\\\"${cityNameGen('PL')}\\\",\\\"houseNumber\\\":\\\"${numberGen()}\\\"}}\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/v1/producer/generate"
+			},
+			"response": []
+		},
+		{
+			"name": "Save",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"dataName\": \"simple_data\",\r\n    \"outputFormat\":\"json\",\r\n    \"jsonModel\":\"[{\\\"quantity\\\":\\\"5\\\"},{\\\"firstName\\\":\\\"${maleNameGen()}\\\",\\\"lastName\\\":\\\"${lastNameGen}\\\"}]\",\r\n    \"hostTarget\":{\r\n        \"hostAddress\":\"http://localhost\",\r\n        \"portNumber\":8080,\r\n        \"uri\":\"/target\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/v1/producer/save"
+			},
+			"response": []
+		},
+		{
+			"name": "SaveSQL",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"dataName\": \"simple_data\",\r\n    \"outputFormat\":\"sql\",\r\n     \"jsonModel\":\"{\\\"tableName\\\":\\\"USER\\\",\\\"columns\\\":{\\\"street\\\":\\\"${streetNameGen()}\\\",\\\"city\\\":\\\"${cityNameGen()}\\\",\\\"houseNumber\\\":\\\"${numberGen()}\\\"}}\",\r\n    \"hostTarget\":{\r\n        \"hostAddress\":\"http://localhost\",\r\n        \"portNumber\":8080,\r\n        \"uri\":\"/target\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/v1/producer/save"
+			},
+			"response": []
+		},
+		{
+			"name": "Save MoreComplex",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"dataName\": \"more_complex_data2\",\r\n    \"jsonModel\":\"[{\\\"quantity\\\":\\\"5\\\"},{\\\"twojstary\\\":\\\"${maleNameGen()}\\\",\\\"kurwamac\\\":\\\"${lastNameGen()}\\\",\\\"nickName\\\":\\\"${nickNameGen()}\\\",\\\"personalData\\\":{\\\"firstName\\\":\\\"${maleNameGen()}\\\",\\\"lastName\\\":\\\"${lastNameGen()}\\\",\\\"data\\\":{\\\"firstName\\\":\\\"${maleNameGen()}\\\",\\\"lastName\\\":\\\"${lastNameGen()}\\\"}},\\\"addressData\\\":{\\\"firstName\\\":\\\"${maleNameGen()}\\\",\\\"lastName\\\":\\\"${lastNameGen()}\\\"},\\\"array\\\":[{\\\"first\\\":\\\"${maleNameGen()}${quantity(5)}\\\",\\\"last\\\":\\\"${lastNameGen()}\\\",\\\"personalData\\\":{\\\"firstName\\\":\\\"${lastNameGen()}\\\",\\\"lastName\\\":\\\"${lastNameGen()}\\\"}},{\\\"first\\\":\\\"${maleNameGen()}\\\",\\\"last\\\":\\\"${lastNameGen()}\\\",\\\"arr2\\\":[\\\"${lastNameGen()}\\\",\\\"${lastNameGen()}\\\",\\\"${lastNameGen()}\\\",\\\"${lastNameGen()}\\\"]}],\\\"arr2\\\":[\\\"${lastNameGen()}\\\",\\\"${lastNameGen()}\\\",\\\"${lastNameGen()}\\\",\\\"${lastNameGen()}\\\"]}]\",\r\n    \"hostTarget\":{\r\n        \"hostAddress\":\"http://localhost\",\r\n        \"portNumber\":8080,\r\n        \"uri\":\"/target\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/v1/producer/save"
+			},
+			"response": []
+		},
+		{
+			"name": "GetGenercData",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/v1/producer/generator"
+			},
+			"response": []
+		},
+		{
+			"name": "SQLDataProduceArr",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"outputFormat\": \"sql\",\r\n    \"outputDestination\": \"json_file\",\r\n    \"jsonModel\":\"{\\\"tableName\\\":\\\"USER\\\",\\\"columns\\\":{\\\"street\\\":\\\"#{streetNameGen()}\\\",\\\"city\\\":\\\"#{cityNameGen()}\\\",\\\"houseNumber\\\":\\\"#{numberGen()}\\\"}}\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/v1/producer/generate"
+			},
+			"response": []
+		},
+		{
+			"name": "SQLDataProduce",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"outputFormat\": \"sql\",\r\n    \"outputDestination\": \"json_file\",\r\n    \"jsonModel\":\"{\\\"tableName\\\":\\\"USER\\\",\\\"columns\\\":{\\\"street\\\":\\\"#{streetNameGen()}\\\",\\\"city\\\":\\\"#{cityNameGen()}\\\",\\\"houseNumber\\\":\\\"#{numberGen()}\\\"}}\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/v1/producer/generate"
+			},
+			"response": []
+		},
+		{
+			"name": "GetGenerators",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/v1/producer/1"
+			},
+			"response": []
+		},
+		{
+			"name": "GetAll",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/v1/producer"
+			},
+			"response": []
+		}
+	]
+}
