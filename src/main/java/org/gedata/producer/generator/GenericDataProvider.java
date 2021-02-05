@@ -1,9 +1,6 @@
 package org.gedata.producer.generator;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Objects;
 import java.util.Random;
