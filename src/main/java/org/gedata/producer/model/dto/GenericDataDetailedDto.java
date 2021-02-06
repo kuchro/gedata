@@ -16,4 +16,15 @@ public class GenericDataDetailedDto {
     private String jsonModel;
     private String outputFormat;
     private HostTargetDto hostTarget;
+    private Long userId;
+
+    public GenericDataDetailedDto(Long id,String dataName, Instant lastModified, String jsonModel,
+                                  String outputFormat, HostTargetDto convertToHostTargetDto) {
+        this.id = id;
+        this.dataName=dataName;
+        this.lastModified= lastModified;
+        this.jsonModel = jsonModel;
+        this.outputFormat = outputFormat;
+        this.hostTarget = convertToHostTargetDto;
+    }
 }

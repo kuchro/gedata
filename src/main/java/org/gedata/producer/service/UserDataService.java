@@ -1,7 +1,9 @@
 package org.gedata.producer.service;
 
 import lombok.AllArgsConstructor;
+import org.gedata.producer.model.producer.GenericData;
 import org.gedata.producer.model.user.UserData;
+import org.gedata.producer.repository.GenericDataRepository;
 import org.gedata.producer.repository.UserDataRepository;
 import org.gedata.producer.utils.UserDuplicatedDataException;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,7 @@ import java.util.Optional;
 public class UserDataService {
 
     private final UserDataRepository userDataRepository;
+    private final GenericDataRepository genericDataRepository;
 
 
     public List<UserData> getAllUserData(){
@@ -52,6 +55,11 @@ public class UserDataService {
                return user;
            }).orElseThrow(()->new NoSuchElementException(
                    String.format("Operation update can not be performed, user with id %s does not exist.",id)));
+    }
+
+    public List<GenericData> getGenericDataByUserId(Long id){
+        UserData user = getUserById(id);
+        return genericDataRepository.findGenericDataByUserData(user);
     }
 
     public void deleteUser(Long id){

@@ -11,8 +11,9 @@ import javax.validation.constraints.NotNull;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GenericDataDto {
+public class ReqGenericDataDto {
 
+    private Long id;
     private String dataName;
     @Valid
     @NotNull(message = "outputFormat is mandatory")
@@ -21,4 +22,7 @@ public class GenericDataDto {
     @NotNull(message = "jsonModel is mandatory")
     private String jsonModel;
     private HostTargetDto hostTarget;
+    @Valid
+    @NotNull
+    private Long userId;
 }

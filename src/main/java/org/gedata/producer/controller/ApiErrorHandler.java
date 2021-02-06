@@ -9,6 +9,7 @@ import org.springframework.expression.spel.SpelEvaluationException;
 import org.springframework.expression.spel.SpelParseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -72,6 +73,14 @@ public class ApiErrorHandler {
         return new ResponseEntity<>(apiError, HttpStatus.CONFLICT);
     }
 
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ApiError> requestGenericDataEx(MethodArgumentNotValidException ex, WebRequest request) {
+        ApiError apiError = getApiError(HttpStatus.BAD_REQUEST.value(), "One of the mandatory fields is missing: " +
+                        "outputFormat, jsonModel, userId.",
+                "Missing mandatory fields.");
+        return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
+    }
     private ApiError getApiError(int i, String message, String s) {
         return new ApiError(i, Instant.now(), message,
                 s);

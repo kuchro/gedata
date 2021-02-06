@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "ae1b5d79-867e-48e2-bf6b-e589314c6df1",
+		"_postman_id": "da99f06a-dc8c-4121-93a1-6cafc0bd04c0",
 		"name": "Producer",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -192,7 +192,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"dataName\": \"simple_data\",\r\n    \"outputFormat\":\"json\",\r\n    \"jsonModel\":\"[{\\\"quantity\\\":\\\"5\\\"},{\\\"firstName\\\":\\\"${maleNameGen()}\\\",\\\"lastName\\\":\\\"${lastNameGen}\\\"}]\",\r\n    \"hostTarget\":{\r\n        \"hostAddress\":\"http://localhost\",\r\n        \"portNumber\":8080,\r\n        \"uri\":\"/target\"\r\n    }\r\n}",
+					"raw": "{\r\n    \"dataName\": \"simple_data\",\r\n    \"outputFormat\":\"json\",\r\n    \"jsonModel\":\"[{\\\"quantity\\\":\\\"5\\\"},{\\\"firstName\\\":\\\"${personalDataGen('male')}\\\",\\\"lastName\\\":\\\"${personalDataGen('lastname')}\\\"}]\",\r\n    \"hostTarget\":{\r\n        \"hostAddress\":\"http://localhost\",\r\n        \"portNumber\":8080,\r\n        \"uri\":\"/target\"\r\n    },\r\n    \"userId\":1\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -222,7 +222,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"dataName\": \"simple_data\",\r\n    \"outputFormat\":\"sql\",\r\n     \"jsonModel\":\"{\\\"tableName\\\":\\\"USER\\\",\\\"columns\\\":{\\\"street\\\":\\\"${streetNameGen()}\\\",\\\"city\\\":\\\"${cityNameGen()}\\\",\\\"houseNumber\\\":\\\"${numberGen()}\\\"}}\",\r\n    \"hostTarget\":{\r\n        \"hostAddress\":\"http://localhost\",\r\n        \"portNumber\":8080,\r\n        \"uri\":\"/target\"\r\n    }\r\n}",
+					"raw": "{\r\n    \"dataName\": \"simple_data\",\r\n    \"outputFormat\":\"sql\",\r\n     \"jsonModel\":\"{\\\"tableName\\\":\\\"USER\\\",\\\"columns\\\":{\\\"street\\\":\\\"${streetNameGen()}\\\",\\\"city\\\":\\\"${cityNameGen()}\\\",\\\"houseNumber\\\":\\\"${numberGen()}\\\"}}\",\r\n    \"hostTarget\":{\r\n        \"hostAddress\":\"http://localhost\",\r\n        \"portNumber\":8080,\r\n        \"uri\":\"/target\"\r\n    },\r\n     \"userId\":1\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -252,7 +252,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"dataName\": \"more_complex_data2\",\r\n    \"outputFormat\": \"json\",\r\n    \"jsonModel\":\"[{\\\"quantity\\\":\\\"5\\\"},{\\\"firstname\\\":\\\"${personalDataGen('lastname')}\\\",\\\"lastname\\\":\\\"${personalDataGen('lastname')}\\\",\\\"nickName\\\":\\\"${nickNameGen()}\\\",\\\"personalData\\\":{\\\"firstName\\\":\\\"${personalDataGen('lastname')}\\\",\\\"lastName\\\":\\\"${personalDataGen('lastname')}\\\",\\\"data\\\":{\\\"firstName\\\":\\\"${personalDataGen('lastname')}\\\",\\\"lastName\\\":\\\"${personalDataGen('lastname')}\\\"}},\\\"addressData\\\":{\\\"firstName\\\":\\\"${personalDataGen('lastname')}\\\",\\\"lastName\\\":\\\"${personalDataGen('lastname')}\\\"},\\\"array\\\":[{\\\"first\\\":\\\"${personalDataGen('lastname')}${quantity(5)}\\\",\\\"last\\\":\\\"${personalDataGen('lastname')}\\\",\\\"personalData\\\":{\\\"firstName\\\":\\\"${personalDataGen('lastname')}\\\",\\\"lastName\\\":\\\"${personalDataGen('lastname')}\\\"}},{\\\"first\\\":\\\"${personalDataGen('lastname')}\\\",\\\"last\\\":\\\"${personalDataGen('lastname')}\\\",\\\"arr2\\\":[\\\"${personalDataGen('lastname')}\\\",\\\"${personalDataGen('lastname')}\\\",\\\"${personalDataGen('lastname')}\\\",\\\"${personalDataGen('lastname')}\\\"]}],\\\"arr2\\\":[\\\"${personalDataGen('lastname')}\\\",\\\"${personalDataGen('lastname')}\\\",\\\"${personalDataGen('lastname')}\\\",\\\"${personalDataGen('lastname')}\\\"]}]\",\r\n    \"hostTarget\":{\r\n        \"hostAddress\":\"http://localhost\",\r\n        \"portNumber\":8080,\r\n        \"uri\":\"/target\"\r\n    }\r\n}",
+					"raw": "{\r\n    \"dataName\": \"more_complex_data2\",\r\n    \"outputFormat\": \"json\",\r\n    \"jsonModel\":\"[{\\\"quantity\\\":\\\"5\\\"},{\\\"firstname\\\":\\\"${personalDataGen('lastname')}\\\",\\\"lastname\\\":\\\"${personalDataGen('lastname')}\\\",\\\"nickName\\\":\\\"${personalDataGen('nickname')()}\\\",\\\"personalData\\\":{\\\"firstName\\\":\\\"${personalDataGen('lastname')}\\\",\\\"lastName\\\":\\\"${personalDataGen('lastname')}\\\",\\\"data\\\":{\\\"firstName\\\":\\\"${personalDataGen('lastname')}\\\",\\\"lastName\\\":\\\"${personalDataGen('lastname')}\\\"}},\\\"addressData\\\":{\\\"firstName\\\":\\\"${personalDataGen('lastname')}\\\",\\\"lastName\\\":\\\"${personalDataGen('lastname')}\\\"},\\\"array\\\":[{\\\"first\\\":\\\"${personalDataGen('lastname')}${quantity(5)}\\\",\\\"last\\\":\\\"${personalDataGen('lastname')}\\\",\\\"personalData\\\":{\\\"firstName\\\":\\\"${personalDataGen('lastname')}\\\",\\\"lastName\\\":\\\"${personalDataGen('lastname')}\\\"}},{\\\"first\\\":\\\"${personalDataGen('lastname')}\\\",\\\"last\\\":\\\"${personalDataGen('lastname')}\\\",\\\"arr2\\\":[\\\"${personalDataGen('lastname')}\\\",\\\"${personalDataGen('lastname')}\\\",\\\"${personalDataGen('lastname')}\\\",\\\"${personalDataGen('lastname')}\\\"]}],\\\"arr2\\\":[\\\"${personalDataGen('lastname')}\\\",\\\"${personalDataGen('lastname')}\\\",\\\"${personalDataGen('lastname')}\\\",\\\"${personalDataGen('lastname')}\\\"]}]\",\r\n    \"hostTarget\":{\r\n        \"hostAddress\":\"http://localhost\",\r\n        \"portNumber\":8080,\r\n        \"uri\":\"/target\"\r\n    },\r\n     \"userId\":1\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -386,7 +386,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/v1/producer/1",
+					"raw": "http://localhost:8080/v1/producer/11/download",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -395,7 +395,8 @@
 					"path": [
 						"v1",
 						"producer",
-						"1"
+						"11",
+						"download"
 					]
 				}
 			},
@@ -469,8 +470,11 @@
 		},
 		{
 			"name": "GetOneUser",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
-				"method": "DELETE",
+				"method": "GET",
 				"header": [],
 				"body": {
 					"mode": "raw",
@@ -498,7 +502,7 @@
 			"response": []
 		},
 		{
-			"name": "SaveUserData",
+			"name": "SaveUserData-Duplicated",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -522,6 +526,70 @@
 						"v1",
 						"userdata",
 						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SaveUserData",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n     \"firstName\": \"Karol\",\r\n     \"lastName\": \"Testowy\",\r\n    \"emailAddress\": \"asrtest@gmail.com\",\r\n    \"nickname\": \"rrewekXX24\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/userdata/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"userdata",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllTemplatesForUser",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/userdata/1/templates",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"userdata",
+						"1",
+						"templates"
 					]
 				}
 			},

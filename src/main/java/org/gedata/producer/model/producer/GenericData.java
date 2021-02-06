@@ -94,4 +94,12 @@ public class GenericData {
     public void setHostTarget(HostTarget hostTarget) {
         this.hostTarget = hostTarget;
     }
+
+    public UserData getUserData() {
+        return userData;
+    }
+
+    public void setUserData(UserData userData) {
+        this.userData = userData;
+    }
 }

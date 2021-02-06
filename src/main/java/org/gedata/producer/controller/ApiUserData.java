@@ -1,8 +1,11 @@
 package org.gedata.producer.controller;
 
 import lombok.AllArgsConstructor;
+import org.gedata.producer.dtomapper.producer.DtoProducerMapper;
 import org.gedata.producer.dtomapper.userdata.DtoUserDataMapper;
 import org.gedata.producer.model.data.DeletedData;
+import org.gedata.producer.model.dto.GenericDataDetailedDto;
+import org.gedata.producer.model.producer.GenericData;
 import org.gedata.producer.model.user.dto.RequestUserData;
 import org.gedata.producer.model.user.dto.UserDataDto;
 import org.gedata.producer.service.UserDataService;
@@ -28,6 +31,14 @@ public class ApiUserData {
     @GetMapping("/{id}")
     public ResponseEntity<UserDataDto> getUserById(@PathVariable Long id) {
         return ResponseEntity.ok(DtoUserDataMapper.convertToUserDataDto(userDataService.getUserById(id)));
+
+
+    }
+    @GetMapping("/{id}/templates")
+    public ResponseEntity<List<GenericDataDetailedDto>> getAllGenericTemplates(@PathVariable Long id) {
+        var data= userDataService.getGenericDataByUserId(id);
+        return ResponseEntity.ok(data
+                .stream().map(DtoProducerMapper::convertToGDLessDetailedDto).collect(Collectors.toList()));
 
 
     }

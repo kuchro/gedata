@@ -7,7 +7,7 @@ import org.gedata.producer.model.user.dto.UserDataDto;
 public class DtoUserDataMapper {
 
     public static UserDataDto convertToUserDataDto(UserData userData) {
-        return UserDataDto.builder().firstName(userData.getFirstName())
+        return UserDataDto.builder().id(userData.getUserId()).firstName(userData.getFirstName())
                 .lastName(userData.getLastName())
                 .emailAddress(userData.getEmailAddress())
                 .nickname(userData.getNickname())

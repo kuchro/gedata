@@ -4,11 +4,14 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.gedata.producer.dtomapper.producer.DtoProducerMapper;
 import org.gedata.producer.generator.DataProducer;
 import org.gedata.producer.generator.SQLInsertProducer;
 import org.gedata.producer.model.data.DownloadData;
+import org.gedata.producer.model.dto.ReqGenericDataDto;
 import org.gedata.producer.model.producer.GenericData;
 import org.gedata.producer.model.producer.InputProducer;
+import org.gedata.producer.model.user.UserData;
 import org.gedata.producer.repository.GenericDataRepository;
 import org.gedata.producer.utils.JsonModelValidator;
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
@@ -32,13 +35,17 @@ public class ProducerService {
     private final GenericDataRepository genericDataRepository;
     private final SQLInsertProducer sqlInsertProducer;
     private final JsonModelValidator jsonModelValidator;
+    private final UserDataService userDataService;
 
 
     public List<GenericData> getAllGenericData() {
         return genericDataRepository.findAll();
     }
 
-    public GenericData saveData(GenericData genericData) throws JsonProcessingException {
+    public GenericData saveData(ReqGenericDataDto reqGenericDataDto) throws JsonProcessingException {
+        UserData user = userDataService.getUserById(reqGenericDataDto.getUserId());
+        GenericData genericData= DtoProducerMapper.convertToGenericData(reqGenericDataDto);
+        genericData.setUserData(user);
         jsonModelValidator.validateJsonString(genericData.getJsonModel(), genericData.getOutputFormat());
         logger.info(String.format("Data to persist: %s", genericData.toString()));
         return genericDataRepository.save(genericData);

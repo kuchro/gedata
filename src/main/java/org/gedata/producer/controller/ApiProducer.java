@@ -9,7 +9,7 @@ import org.gedata.producer.generator.GeneratorProvider;
 import org.gedata.producer.model.data.DeletedData;
 import org.gedata.producer.model.data.DownloadData;
 import org.gedata.producer.model.dto.GenericDataDetailedDto;
-import org.gedata.producer.model.dto.GenericDataDto;
+import org.gedata.producer.model.dto.ReqGenericDataDto;
 import org.gedata.producer.model.producer.GenericData;
 import org.gedata.producer.model.producer.InputProducer;
 import org.gedata.producer.service.ProducerService;
@@ -37,10 +37,10 @@ public class ApiProducer {
     private DataPicker dataPicker;
 
     @PostMapping("/save")
-    public ResponseEntity<GenericDataDto> saveGenericData(@Valid @RequestBody GenericDataDto genericDataDto) throws JsonProcessingException {
+    public ResponseEntity<ReqGenericDataDto> saveGenericData(@Valid @RequestBody ReqGenericDataDto reqGenericDataDto) throws JsonProcessingException {
        return ResponseEntity.status(201)
                .body(DtoProducerMapper.convertToGenericDataDto(
-                       producerService.saveData(DtoProducerMapper.convertToGenericData(genericDataDto))));
+                       producerService.saveData(reqGenericDataDto)));
 
     }
 
@@ -62,8 +62,8 @@ public class ApiProducer {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<GenericData> updateGenericData(@PathVariable Long id,@RequestBody GenericDataDto genericDataDto){
-        return producerService.updateGenericData(id,DtoProducerMapper.convertToGenericData(genericDataDto))
+    public ResponseEntity<GenericData> updateGenericData(@PathVariable Long id,@RequestBody ReqGenericDataDto reqGenericDataDto){
+        return producerService.updateGenericData(id,DtoProducerMapper.convertToGenericData(reqGenericDataDto))
                 .map(genericData -> ResponseEntity.status(204).body(genericData))
                 .orElseThrow(()->new NoSuchElementException(String.format("Data with id: %s does not exist.",id)));
     }
