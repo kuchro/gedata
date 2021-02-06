@@ -20,8 +20,8 @@ public class GenericDataProvider implements GeneratorProvider {
     @Override
     public String personalDataGen(String genName) throws NoSuchMethodException {
         var data = dataPicker.personalGen(genName);
-        if(Objects.isNull(data)){
-            throw new NoSuchMethodException(String.format("Generator with name: %s does not exist.",genName));
+        if (Objects.isNull(data)) {
+            throw new NoSuchMethodException(String.format("Generator with name: %s does not exist.", genName));
         }
         return data.get(random.nextInt(data.size() - 1));
     }

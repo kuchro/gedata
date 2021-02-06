@@ -1,11 +1,9 @@
 package org.gedata.producer.model.producer;
 
-import lombok.*;
 import org.gedata.producer.model.data.HostTarget;
+import org.gedata.producer.model.user.UserData;
 
 import javax.persistence.*;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
 import java.time.Instant;
 
@@ -17,6 +15,9 @@ public class GenericData {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String dataName;
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private UserData userData;
     private Instant createdTime;
     private Instant lastModified;
     @Column(length = 1000000)

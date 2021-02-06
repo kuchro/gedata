@@ -6,13 +6,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.gedata.producer.generator.DataPicker;
 import org.gedata.producer.generator.GeneratorProvider;
+import org.gedata.producer.model.data.DeletedData;
 import org.gedata.producer.model.data.DownloadData;
 import org.gedata.producer.model.dto.GenericDataDetailedDto;
 import org.gedata.producer.model.dto.GenericDataDto;
 import org.gedata.producer.model.producer.GenericData;
 import org.gedata.producer.model.producer.InputProducer;
 import org.gedata.producer.service.ProducerService;
-import org.gedata.producer.utils.DtoProducerMapper;
+import org.gedata.producer.dtomapper.producer.DtoProducerMapper;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -56,9 +57,8 @@ public class ApiProducer {
 
     @GetMapping("/{id}")
     public ResponseEntity<GenericDataDetailedDto> getGenericDataById(@PathVariable Long id) throws JsonProcessingException {
-        return producerService.getGenericDataById(id)
-                .map(genericData -> ResponseEntity.ok().body(DtoProducerMapper.convertToGDDetailedDto(genericData)))
-                .orElseThrow(()->new NoSuchElementException(String.format("Data with id: %s does not exist.",id)));
+        return ResponseEntity.ok(DtoProducerMapper.convertToGDDetailedDto(producerService.getGenericDataById(id)));
+
     }
 
     @PutMapping("/{id}")
@@ -90,7 +90,8 @@ public class ApiProducer {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteDataById(@PathVariable Long id){
-        producerService.deleteGenericData(id);;
+    public ResponseEntity<DeletedData> deleteDataById(@PathVariable Long id){
+        producerService.deleteGenericData(id);
+        return ResponseEntity.ok(new DeletedData(String.format("User with id %s successfuly deleted.",id)));
     }
 }

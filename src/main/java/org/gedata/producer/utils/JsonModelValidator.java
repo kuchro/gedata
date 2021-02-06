@@ -27,6 +27,9 @@ public class JsonModelValidator {
 
     private SQLDataModel validateSqlDataModel(String jsonModel) {
         try {
+            if(jsonModel.contains("quantity")){
+                jsonModel = computeString(jsonModel);
+            }
             return objectMapper.readValue(jsonModel, SQLDataModel.class);
         } catch (Exception ex) {
             throw new SQLDataModelExceptionFormat(
@@ -37,6 +40,11 @@ public class JsonModelValidator {
                                         put("<columnName2>", "{value}");
                                     }}))));
         }
+    }
+
+    private String computeString(String jsonModel) {
+        return jsonModel.replaceAll("\\[\\{\"quantity\":\"\\d+\"},","").replaceAll("]","");
+
     }
 
     private String preparePrettySQLDataObject(SQLDataModel sqlDataModel) {
